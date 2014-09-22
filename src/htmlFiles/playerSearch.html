@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- calling ajax from the net -->
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.js"></script> 
+        <script>
+            $(document).ready(function() {
+                $("#btn").click(function() {
+                    //alert("sdkskdsa");
+                    var a = inputa.value;
+
+                    $.ajax({
+                        url: "../BitchPlayer/" + a,
+                        dataType: "json",
+                        error: function(data, textStatus, jqXHR) {
+                            var jsonResponse = JSON.parse(data.responseText);
+                            alert(">>>" + jsonResponse.error);
+                        }
+                    }).done(function(player) {
+                        var row = "<tr><td>" + player.id + "</td><td>" + player.name + "</td><td>" + player.country + "</td></tr>";
+                        $("#rows").append(row);
+                        console.log(row);
+                    });
+
+
+                });
+            });
+
+        </script>
+    </head>
+    <body>
+        <h1>Choose player ID</h1>
+        choose person: <input type="text" id="inputa" name="chosenID"><br>
+        <button id="btn" type="submit">Get Players</button>
+        <table border = "1">
+            <thead>
+                <tr><th>Id</th><th>Name</th><th>Country</th></tr>
+            </thead>
+            <tbody id="rows"></tbody>
+        </table>
+
+    </body>
+</html>

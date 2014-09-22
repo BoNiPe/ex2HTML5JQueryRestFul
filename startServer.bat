@@ -1,0 +1,1 @@
+java -cp RestDemoFridayEx-1.jar server.RestServer 8080 localhost public/

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.0.js"></script>
+        <script>
+            $(document).ready(function() {
+                $("#btn").click(function() {
+                    //alert("sdkskdsa");
+                    $.ajax({
+                        url: "../AllPlayerNames",
+                        dataType: "json",
+                        error: function(data, textStatus, jqXHR) {
+                            var jsonResponse = JSON.parse(data.responseText);
+                            alert(">>>"+jsonResponse.error);
+                        }
+                    }).done(function(players) {
+                        players.forEach(function(player){
+                            var row = "<tr><td>" + player.id + "</td><td>" + player.name + "</td><td>" + player.country + "</td></tr>";
+                            $("#rows").append(row);
+                        });
+
+
+                    });
+                });
+            });
+            
+            
+        </script>
+    </head>
+    <body>
+        <h1>Show Players</h1>
+        <button id="btn">Get Players</button>
+        <table border = "1">
+            <thead>
+                <tr><th>Id</th><th>Name</th><th>Country</th></tr>
+            </thead>
+            <tbody id="rows"></tbody>
+        </table>
+    </body>
+</html>
